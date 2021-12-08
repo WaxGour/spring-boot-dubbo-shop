@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改商品界面</title>
+</head>
+<body>
+<div>
+    <center>
+        <h3>修改商品</h3>
+    </center>
+</div>
+<center>
+    <table cellpadding="10px">
+        <form th:method="post" th:action="@{/items/updateItems}">
+        <tr>
+            <td>编号</td>
+            <td><input type="text" name="id" th:value="${items.id}" readonly></td>
+        </tr>
+        <tr>
+            <td>商品名称</td>
+            <td><input type="text" name="itemsName" th:value="${items.itemsName}" ></td>
+        </tr>
+        <tr>
+            <td>价格</td>
+            <td><input type="text" name="itemsPrice" th:value="${items.itemsPrice}" ></td>
+        </tr>
+        <tr>
+            <td>库存数量</td>
+            <td><input type="text" name="itemsCount" th:value="${items.itemsCount}" ></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="修改">
+            </td>
+        </tr>
+        </form>
+    </table>
+</center>
+</body>
+</html>

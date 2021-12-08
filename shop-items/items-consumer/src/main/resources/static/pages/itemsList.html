@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品展示界面</title>
+</head>
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script>
+    //查询表单提交
+    function fuzzyBook() {
+        $("#fuzzyselectfform").submit();
+    }
+    //分页，切换页面
+    function changePage(page) {
+        // alert(page);
+        $("#idpage").val(page)
+        $("#fuzzyselectfform").submit();
+    }
+    //删除
+    function deleteItems(id){
+        if (confirm("确认要删除吗？")){
+            $.ajax({
+                type:"post",
+                url:"/items/deleteItems",
+                dataType:'json',
+                data:{"id":id},
+                success:function(
+                    data) {
+                    //data是json
+                    if(data.code=='500'){
+                        alert("删除失败！！！")
+                    }else if(data.code=='200'){
+                        alert("删除成功！！！")
+                    }
+                    window.location.reload();
+                }
+            });
+        }else {
+            window.location.reload();
+        }
+    }
+</script>
+<body>
+<div>
+    <center>
+        <h3>商品展示</h3>
+    </center>
+</div>
+<center>
+    <center>
+    <form th:action="@{/items/getItemList}" th:method="post" id="fuzzyselectfform">
+        <input type="hidden" name="currentpage" id="idpage" value="1">
+        <label>商品名称：<input type="text" name="itemsname" id="iditemsname" th:value="${itemsname}"></label>&nbsp;&nbsp;
+<!--        <label>最低价：<input type="number" name="lowprice" id="idlowprice" value="${requestScope.lowprice}"></label>&nbsp;&nbsp;-->
+<!--        <strong>—</strong>-->
+<!--        &nbsp;&nbsp;<label>最高价：<input type="number" name="highprice" id="idhighprice" value="${requestScope.highprice}"></label>&nbsp;&nbsp;-->
+        <button onclick="fuzzyBook()">查  询</button>
+    </form>
+    </center>
+    <table cellpadding="10px">
+        <tr>
+            <td>编号</td>
+            <td>商品名称</td>
+            <td>价格</td>
+            <td>库存数量</td>
+            <td colspan="2"><center>操作</center></td>
+        </tr>
+        <tr th:each="items : ${itemsPageInfo.list}">
+            <td th:text="${items.id}">0</td>
+            <td th:text="${items.itemsName}">0</td>
+            <td th:text="${items.itemsPrice}">0</td>
+            <td th:text="${items.itemsCount}">0</td>
+            <td>
+<!--                <a th:href="@{/items/deleteItems(id=${items.id})}">删除</a>-->
+<!--                <a href="#" th:onclick="|deleteItems(${items.id});|">删除</a>-->
+<!--                <a th:href="@{/items/toUpdateItems(id=${items.id})}">修改</a>-->
+<!--                <a href="#" th:onclick="|deleteItems(${items.id});|">删除</a>-->
+                <a href="#" th:onclick="deleteItems([[${items.id}]])">删除</a>
+                <a th:href="@{/items/toUpdateItems(id=${items.id})}">修改</a>
+            </td>
+
+        </tr>
+        <tr>
+            <td><a th:href="@{/static/html/addItems.html}">添加</a></td>
+            <td colspan="5">
+                <center>
+                总记录数：<span th:text="${itemsPageInfo.total}"></span>&nbsp;&nbsp;
+                当前页/总页数：<span th:text="${itemsPageInfo.pageNum}+'/'+${itemsPageInfo.pages}"></span>&nbsp;&nbsp;
+                <a href="#" th:onclick="|changePage(1);|" th:if="${itemsPageInfo.pages}!=1">首页</a>&nbsp;&nbsp;
+                <a href="#" th:onclick="|changePage(${itemsPageInfo.prePage});|" th:if="${itemsPageInfo.pageNum}!=1">上一页</a>&nbsp;&nbsp;
+                <a href="#" th:onclick="|changePage(${itemsPageInfo.nextPage});|" th:if="${itemsPageInfo.pageNum}!=${itemsPageInfo.pages}">下一页</a>&nbsp;&nbsp;
+                <a href="#" th:onclick="|changePage(${itemsPageInfo.pages});|" th:if="${itemsPageInfo.pages}!=1">尾页</a>&nbsp;&nbsp;
+                </center>
+            </td>
+        </tr>
+    </table>
+
+</center>
+</body>
+</html>

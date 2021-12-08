@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zy.maven.springboot</groupId>
+    <artifactId>spring-boot-dubbo-shop</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>shop-user</module>
+        <module>shop-items</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/>
+        <!-- 设定一个空值默认值为../pom.xml 表示将始终从父级仓库中获取，不从本地路径获取
+        MAVEN构建jar包时候查找顺序：relativePath元素中的地址–本地仓库–远程仓库
+         -->
+    </parent>
+
+</project>

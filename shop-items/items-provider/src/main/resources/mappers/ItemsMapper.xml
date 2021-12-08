@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.shop.items.mapper.ItemsMapper">
+  <resultMap id="BaseResultMap" type="com.zy.shop.items.po.Items">
+    <!--@mbg.generated-->
+    <!--@Table items-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="items_name" jdbcType="VARCHAR" property="itemsName" />
+    <result column="items_price" jdbcType="DOUBLE" property="itemsPrice" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, items_name, items_price, `count`, pic, `status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from items
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from items
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zy.shop.items.po.Items" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into items (items_name, items_price, `count`, 
+      pic, `status`)
+    values (#{itemsName,jdbcType=VARCHAR}, #{itemsPrice,jdbcType=DOUBLE}, #{count,jdbcType=INTEGER}, 
+      #{pic,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zy.shop.items.po.Items" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into items
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemsName != null">
+        items_name,
+      </if>
+      <if test="itemsPrice != null">
+        items_price,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemsName != null">
+        #{itemsName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemsPrice != null">
+        #{itemsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zy.shop.items.po.Items">
+    <!--@mbg.generated-->
+    update items
+    <set>
+      <if test="itemsName != null">
+        items_name = #{itemsName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemsPrice != null">
+        items_price = #{itemsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zy.shop.items.po.Items">
+    <!--@mbg.generated-->
+    update items
+    set items_name = #{itemsName,jdbcType=VARCHAR},
+      items_price = #{itemsPrice,jdbcType=DOUBLE},
+      `count` = #{count,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
